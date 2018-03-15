@@ -1,3 +1,3 @@
-# miprimergit
-Just testing some gits and stuff.
+## Equipo D
+Buenas chavalotes.
 # proyecto-videojuego-equipod

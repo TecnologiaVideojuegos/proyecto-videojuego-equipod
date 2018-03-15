@@ -1,3 +1,3 @@
 ## Equipo D
-Buenas chavalotes.
+Buenas chavalotes. Hello there!
 # proyecto-videojuego-equipod

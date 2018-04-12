@@ -41,17 +41,30 @@ public class Unit
                         {
                                 BolaDeFuego bola_de_fuego = new BolaDeFuego();
                                 this.name= bola_de_fuego.getName();
+                                this.cost = bola_de_fuego.getCost();
                                 this.damage = bola_de_fuego.getDamage();
                                 this.health = bola_de_fuego.getHealth();
                                 this.type = bola_de_fuego.getType();
                         }
+                        
                         case "Acechador Oscuro":
                         {
                                 AcechadorOscuro acechador_oscuro = new AcechadorOscuro();
                                 this.name= acechador_oscuro.getName();
+                                this.cost = acechador_oscuro.getCost();
                                 this.damage = acechador_oscuro.getDamage();
                                 this.health = acechador_oscuro.getHealth();
                                 this.type = acechador_oscuro.getType();
+                        }
+                        
+                        case "Cazador":
+                        {
+                                Cazador cazador = new Cazador();
+                                this.name= cazador.getName();
+                                this.cost = cazador.getCost();
+                                this.damage = cazador.getDamage();
+                                this.health = cazador.getHealth();
+                                this.type = cazador.getType();
                         }
 		}
 	}
@@ -69,12 +82,50 @@ public class Unit
                     }
                     case "Caballero Sagrado":
                     {
-                        state = "Guard";
+                        state = "Guard"; //estado de "Provocar"
                     }
                     case "Acechador Oscuro":
                     {
-                        state = "Sentence";
-                        target.setHealth(0);
+                        state = "Sentence"; //mata al enemigo directamente
+                    }
+                    case "Cazador":
+                    {
+                        Match match = Match.getMatchInstance();
+                        Unit lobo = new Unit("Lobo");
+                        //GameMethods.invokeCard(lobo, null, match.getP_turn());
+                        if(match.getP_turn()==1)
+                        {
+                            if(match.getP1_table().size()<2)
+                            {
+                                match.getP1_table().add(lobo);
+                                match.getP1_table().add(lobo);
+                            }
+                            if(match.getP1_table().size()<3)
+                            {
+                                match.getP1_table().add(lobo);                                
+                            }
+                            if(match.getP1_table().size()<4)
+                            {
+                                System.out.println("No cabe ninguna carta");                                
+                            }
+                            
+                        }
+                        else
+                        {
+                            if(match.getP2_table().size()<2)
+                            {
+                                match.getP2_table().add(lobo);
+                                match.getP2_table().add(lobo);
+                            }
+                            if(match.getP2_table().size()<3)
+                            {
+                                match.getP2_table().add(lobo);                                
+                            }
+                            if(match.getP2_table().size()<4)
+                            {
+                                System.out.println("No cabe ninguna carta");                                
+                            }
+                        }
                     }
 		}
 	}

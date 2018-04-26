@@ -29,6 +29,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
                         
                     case "Caballero Sagrado":
                             this.name = "Caballero Sagarado";
@@ -38,6 +39,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
                         
                     case "Bola de Fuego":
                             this.name = "Bola de Fuego";
@@ -56,6 +58,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
                         
                     case "Cazador":
                             this.name = "Cazador";
@@ -65,6 +68,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
                         
                     case "Druida":
                             this.name = "Druida";
@@ -74,6 +78,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
                             
                     case "Clerigo":
                             this.name = "Clerigo";
@@ -83,6 +88,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
                             
                     case "Asesino":
                             this.name = "Asesino";
@@ -92,6 +98,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
                     
                     case "Ladron":
                             this.name = "Ladron";
@@ -101,6 +108,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
                             
                     case "Lobo":
                             this.name = "Lobo";
@@ -110,6 +118,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
 
                     case "Mago del Tiempo":
                             this.name = "Mago del Tiempo";
@@ -119,6 +128,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
                             
                     case "Heraldo del Caos":
                             this.name = "Heraldo del Caos";
@@ -128,6 +138,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
                             
                     case "Ninja":
                             this.name = "Ninja";
@@ -137,6 +148,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
                             
                     case "Segador":
                             this.name = "Segador";
@@ -146,6 +158,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
                             
                     case "Segador Dorado":
                             this.name = "Segador Dorado";
@@ -155,6 +168,7 @@ public class Unit
                             this.damage = this.initial_damage;
                             this.health = this.initial_health;
                             this.type = "Minion";
+                            this.attackExecuted=true;
             }
 		
 	}

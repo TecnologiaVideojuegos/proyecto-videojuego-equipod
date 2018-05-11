@@ -9,16 +9,16 @@ public class Match {
     private static int turn_count = 0; //Numero de turnos... MAXIMO 20 o algo asi
     private static int p_turn; // 1 o 2 segun el jugador al ue le toque.
 
-    private static ArrayList<Unit> p1_deck; //Todas las cartas del jugador 1.
-    private static ArrayList<Unit> p1_hand; //Cartas de la mano del jugador 1.
-    private static ArrayList<Unit> p1_table; //Cartas de la mesa del jugador 1.
+    private static ArrayList<Unit> p1_deck = new ArrayList <Unit> (); //Todas las cartas del jugador 1.
+    private static ArrayList<Unit> p1_hand = new ArrayList <Unit> (); //Cartas de la mano del jugador 1.
+    private static ArrayList<Unit> p1_table = new ArrayList <Unit> (); //Cartas de la mesa del jugador 1.
     private static int p1_energy; //Energia del jugador 1.
     private static int p1_health=20; //Vida del jugador 1.
     private static int p1_spellIncrement; //Incremento de daño de hechizos del jugador 1.
 
-    private static ArrayList<Unit> p2_deck; //Todas las cartas del jugador 2.
-    private static ArrayList<Unit> p2_hand; //Cartas de la mano del jugador 2.
-    private static ArrayList<Unit> p2_table; //Cartas de la mesa del jugador 2.
+    private static ArrayList<Unit> p2_deck = new ArrayList <Unit> (); //Todas las cartas del jugador 2.
+    private static ArrayList<Unit> p2_hand = new ArrayList <Unit> (); //Cartas de la mano del jugador 2.
+    private static ArrayList<Unit> p2_table = new ArrayList <Unit> (); //Cartas de la mesa del jugador 2.
     private static int p2_energy; //Energia del jugador 2.
     private static int p2_health=20; //Vida del jugador 2.
     private static int p2_spellIncrement; //Incremento de daño de hechizps del jugador 2.
@@ -155,3 +155,4 @@ public class Match {
     }
 
 }
+

@@ -1,6 +1,7 @@
 package FightKnights.Logic;
 
 import java.util.ArrayList;
+import org.newdawn.slick.SlickException;
 
 public class GameMethods 
 {
@@ -114,7 +115,7 @@ public class GameMethods
     
     // Invocaciones a la mesa de cada jugador
     
-    public static void invokeCard(Unit unit, Unit target, int player) //Invocamos a una carta a la mesa
+    public static void invokeCard(Unit unit, Unit target, int player) throws SlickException //Invocamos a una carta a la mesa
     {
         Match match = Match.getMatchInstance();
         
@@ -200,7 +201,7 @@ public class GameMethods
         }
     }
 
-    public static void specialInvokeCard(Unit unit, Unit target, int player) //Invocacion realizada sin estar una carta en la mano.
+    public static void specialInvokeCard(Unit unit, Unit target, int player) throws SlickException //Invocacion realizada sin estar una carta en la mano.
     {
     	Match match = Match.getMatchInstance();
         

@@ -1,0 +1,71 @@
+LO QUE HAYA ENTRE ASTERISCOS, EN NEGRITA
+LO QUE HAYA ENTRE ASTERISCOS, EN NEGRITA
+LO QUE HAYA ENTRE ASTERISCOS, EN NEGRITA
+LO QUE HAYA ENTRE ASTERISCOS, EN NEGRITA
+LO QUE HAYA ENTRE ASTERISCOS, EN NEGRITA
+LAS RAYITAS SIGNIFICAN QUE NO HAY QUE PONER NADA, VAN SIN TEXTO
+LAS RAYITAS SIGNIFICAN QUE NO HAY QUE PONER NADA, VAN SIN TEXTO
+LAS RAYITAS SIGNIFICAN QUE NO HAY QUE PONER NADA, VAN SIN TEXTO
+LAS RAYITAS SIGNIFICAN QUE NO HAY QUE PONER NADA, VAN SIN TEXTO
+LAS RAYITAS SIGNIFICAN QUE NO HAY QUE PONER NADA, VAN SIN TEXTO
+-------------------------------------------------------------------------------------------------------------------------------
+
+ARQUERO:--------------------------------------------------------
+
+ASESINO:--------------------------------------------------------
+
+LANCERO:--------------------------------------------------------
+
+GUERRERO:--------------------------------------------------------
+
+BRUJA: *AL INVOCAR* Otorga +1 de daño en hechizos
+
+ACOLITO:--------------------------------------------------------
+
+TEMPLARIO: *Provocar*
+
+RONIN:--------------------------------------------------------
+
+PIRATA: *Cargar*
+
+CABALLERO: *Provocar*
+
+CABALLERO OSCURO: *Cargar*
+
+VIKINGO: *Provocar*
+
+VALKIRIA: *AL INVOCAR* Cura +1 de salud a todos los esbirros aliados
+
+PIROMÁNTICA: *AL MORIR* Añade una bola de fuego a tu mano
+
+HECHICERA: *AL INVOCAR* Otorga +1 de daño en hechizos
+
+GLADIADOR: *Provocar*
+
+DRAGON MALIGNO: Obtiene +2 de daño a partir del turno 10
+
+DRAGON OSCURO:--------------------------------------------------------
+
+SAMURAI: Obtiene +2 de daño a partir del turno 7
+
+PALADIN:--------------------------------------------------------
+
+GUARDIAN: *Provocar*
+
+VAMPIRO: Cada vez que ataca recupera +1 de salud
+
+USURPADOR: *AL MORIR* Inflinge +1 de daño a todos los esbirros enemigos
+
+MAGO: *AL INVOCAR* Otorga +1 de daño en hechizos
+
+JINETE DE DRAGON:--------------------------------------------------------
+
+DRAGON INFERNAL: Si ha recibido daño obtiene +2 de ataque
+
+ARCHIMAGO: *AL INVOCAR* Otorga +2 de daño en hechizos
+
+SACERDOTE: *AL INVOCAR* Cura +3 de salud a todos los esbirros aliados
+
+REY: *Provocar*
+
+DEVASTADOR: *AL INVOCAR* Destruye todos los esbirros y descarta tu mano

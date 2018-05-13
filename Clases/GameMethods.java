@@ -132,8 +132,8 @@ public class GameMethods
                     {
                         if(match.getP1_energy() >= unit.getCost())
                         {
-                            tablePlayer1.add(handPlayer1.get(handPlayer1.indexOf(unit)));
-                            handPlayer1.remove(handPlayer1.indexOf(unit));
+                            tablePlayer1.add(unit);
+                            handPlayer1.remove(unit);
                             
                             match.setP1_energy(match.getP1_energy() - unit.getCost());
                             unit.initSkill(target);
@@ -153,8 +153,8 @@ public class GameMethods
                     {
                         if(match.getP2_energy() >= unit.getCost())
                         {
-                            tablePlayer2.add(handPlayer2.get(handPlayer2.indexOf(unit)));
-                            handPlayer2.remove(handPlayer2.indexOf(unit));
+                            tablePlayer2.add(unit);
+                            handPlayer2.remove(unit);
                             
                             match.setP2_energy(match.getP2_energy() - unit.getCost());
                             unit.initSkill(target);
@@ -174,7 +174,7 @@ public class GameMethods
                     
                     if(match.getP1_energy() >= unit.getCost())
                     {
-                        handPlayer1.remove(handPlayer1.indexOf(unit));
+                        handPlayer1.remove(unit);
 
                         match.setP1_energy(match.getP1_energy() - unit.getCost());
                         unit.initSkill(target);
@@ -197,6 +197,10 @@ public class GameMethods
                     else
                         System.out.println("No tienes suficiente energia");
                 }
+            }
+            default:
+            {
+                
             }
         }
     }

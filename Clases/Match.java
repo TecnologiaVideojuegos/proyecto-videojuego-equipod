@@ -40,15 +40,15 @@ public class Match {
 
     // GETTERS Y SETTERS
     //********************************************
-    public ArrayList<Unit> getP1_deck() {
+    public synchronized ArrayList<Unit> getP1_deck() {
         return p1_deck;
     }
 
-    public ArrayList<Unit> getP1_hand() {
+    public synchronized ArrayList<Unit> getP1_hand() {
         return p1_hand;
     }
 
-    public ArrayList<Unit> getP1_table() {
+    public synchronized ArrayList<Unit> getP1_table() {
         return p1_table;
     }
 
@@ -64,7 +64,7 @@ public class Match {
         this.p1_table = p1_table;
     }
 
-    public int getP1_energy() {
+    public synchronized int getP1_energy() {
         return p1_energy;
     }
 
@@ -72,24 +72,24 @@ public class Match {
         this.p1_energy = p1_energy;
     }
 
-    public int getP1_health() {
+    public synchronized int getP1_health() {
         return p1_health;
     }
 
-    public void setP1_health(int p1_health) {
+    public synchronized void setP1_health(int p1_health) {
         Match.p1_health = p1_health;
     }
 
     //********************************************
-    public ArrayList<Unit> getP2_deck() {
+    public synchronized ArrayList<Unit> getP2_deck() {
         return p2_deck;
     }
 
-    public ArrayList<Unit> getP2_hand() {
+    public synchronized ArrayList<Unit> getP2_hand() {
         return p2_hand;
     }
 
-    public ArrayList<Unit> getP2_table() {
+    public synchronized ArrayList<Unit> getP2_table() {
         return p2_table;
     }
 
@@ -105,7 +105,7 @@ public class Match {
         this.p2_table = p2_table;
     }
 
-    public int getP2_energy() {
+    public synchronized int getP2_energy() {
         return p2_energy;
     }
 
@@ -113,7 +113,7 @@ public class Match {
         this.p2_energy = p2_energy;
     }
 
-    public int getP2_health() {
+    public synchronized int getP2_health() {
         return p2_health;
     }
 
@@ -126,7 +126,7 @@ public class Match {
         this.turn_count = turn_count;
     }
 
-    public int getTurn_count() {
+    public synchronized int getTurn_count() {
         return turn_count;
     }
 
@@ -134,11 +134,11 @@ public class Match {
         this.p_turn = p_turn;
     }
 
-    public int getP_turn() {
+    public synchronized int getP_turn() {
         return p_turn;
     }
 
-    public int getP1_spellIncrement() {
+    public synchronized int getP1_spellIncrement() {
         return p1_spellIncrement;
     }
 
@@ -146,7 +146,7 @@ public class Match {
         this.p1_spellIncrement = p1_spellIncrement;
     }
 
-    public int getP2_spellIncrement() {
+    public synchronized int getP2_spellIncrement() {
         return p2_spellIncrement;
     }
 
@@ -155,4 +155,5 @@ public class Match {
     }
 
 }
+
 

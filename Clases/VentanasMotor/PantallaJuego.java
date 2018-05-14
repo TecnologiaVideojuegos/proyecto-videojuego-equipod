@@ -1,4 +1,4 @@
-/*
+//*
     La clase principal del juego, el tablero, 
     donde los jugadores lanzan sus cartas y se desarrolla la accion
  */
@@ -23,7 +23,7 @@ public class PantallaJuego extends BasicGameState
     private ArrayList <Unit> mesa1, mesa2;
     
     private Image cursor;
-    private Image tablero, reinicio, rendicion, salir;
+    private Image tablero, reinicio, rendicion, salir, pasarTurno;
     private Image cartaDePrueba;
     private Image imagenMano1, imagenMano2, imagenMano3, imagenMano4, imagenMano5;
     private Image imagenMesa1_1, imagenMesa1_2, imagenMesa1_3, imagenMesa1_4, imagenMesa1_5;
@@ -34,11 +34,13 @@ public class PantallaJuego extends BasicGameState
     private boolean cambioDeTurno;
     private boolean ratonPulsado;
     private boolean invocacionPosible = false;
-    private boolean reinicioOver, rendicionOver, salirOver;
+    private boolean reinicioOver, rendicionOver, salirOver, pasarTurnoOver;
     
     private int x1, x2, x3, x4, x5, y1, y2, y3, y4, y5;
     private int xInit1, xInit2, xInit3, xInit4, xInit5, yInit1, yInit2, yInit3, yInit4, yInit5;
     private int distanciaX, distanciaY;
+    
+    private GameContainer container;
 
     @Override
     public int getID() 
@@ -49,13 +51,16 @@ public class PantallaJuego extends BasicGameState
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException 
     {
+        this.container = container;
+        
         partida = Match.getMatchInstance();
         
-        partida.setP_turn( 1 );
+        partida.setP_turn( 2 );
         partida.setP1_energy( 100 );
         partida.setP2_energy( 100 );
         
         tablero = new Image("res/TABLEROREAL.jpg");
+        pasarTurno = new Image("res/pasarturno.png");
         reinicio = new Image("res/reiniciar.png");
         rendicion = new Image("res/rendirse.png");
         salir = new Image("res/salir.png");
@@ -89,61 +94,80 @@ public class PantallaJuego extends BasicGameState
     {
         
         tablero.draw();
-        reinicio.draw(1037, 540, 200, 70);
-        rendicion.draw(23, 510, 200, 50);
-        salir.draw(23, 590, 200, 50);
+        pasarTurno.draw(1037, 540, 200, 70);
+        rendicion.draw(23, 500, 200, 50);
+        reinicio.draw(23, 550, 200, 50);
+        salir.draw(23, 600, 200, 50);
 
         dibujarCartas();
-        
         dibujarEnTablero();
+        
+        g.drawString(partida.getP_turn()+"", 500, 500);
     }
-    
-    public void ratonSobreBoton()
-    {
-        reinicioOver = ((raton.getMouseX()>=1037&&raton.getMouseY()>=540)&&(raton.getMouseX()<=1237&&raton.getMouseY()<=610));
-        rendicionOver = ((raton.getMouseX()>=23&&raton.getMouseY()>510)&&(raton.getMouseX()<=223&&raton.getMouseY()<=560));
-        salirOver = ((raton.getMouseX()>=23&&raton.getMouseY()>=590)&&(raton.getMouseX()<=223&&raton.getMouseY()<=640));
-    }
-    
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException 
     {
+        ratonPulsado = raton.isMouseButtonDown(0);
         ratonSobreCartas();
         ratonSobreBoton();
-        
-        ratonPulsado = raton.isMouseButtonDown(0);
-        
         botonPulsado();
         draggAndDrop();
     }
     
-    public void botonPulsado()
+    public void ratonSobreBoton()
     {
-        if(ratonPulsado==true)
+        reinicioOver = ((raton.getMouseX()>=23&&raton.getMouseY()>=550)&&(raton.getMouseX()<=223&&raton.getMouseY()<=600));
+        rendicionOver = ((raton.getMouseX()>=23&&raton.getMouseY()>500)&&(raton.getMouseX()<=223&&raton.getMouseY()<=550));
+        salirOver = ((raton.getMouseX()>=23&&raton.getMouseY()>=600)&&(raton.getMouseX()<=223&&raton.getMouseY()<=650));
+        pasarTurnoOver = ((raton.getMouseX()>=1037&&raton.getMouseY()>540)&&(raton.getMouseX()<=1237&&raton.getMouseY()<=610));
+    }
+    
+    public void botonPulsado() throws SlickException
+    {
+        if(ratonPulsado)
         {
             //Reinicia la partida
-            if(reinicioOver==true)
+            if(reinicioOver)
             {
-               
+                partida = Match.getMatchInstance();
+
+                partida.setTurn_count( 0 );
+                partida.setP_turn( 1 );
+                partida.setP1_health( 20 );
+                partida.setP2_health( 20 );
+                partida.setP1_energy( 100 );
+                partida.setP2_energy( 100 );
+
+                unidadSeleccionada = null;
+                invocacionPosible = false;
+
+                partida.getP1_deck().clear();
+                partida.getP1_table().clear();
+                partida.getP1_hand().clear();
+                partida.getP2_deck().clear();
+                partida.getP2_table().clear();
+                partida.getP2_hand().clear();
+
+                initMazos();
             }
             
             //El jugador se rinde y gana el contrario
-            if(rendicionOver==true)
+            if(rendicionOver)
             {
                 //Ver que jugador pulsa el boton
                 if(partida.getP_turn()==1)
-                {
                     partida.setP1_health(0);
-                }
-                
                 else
-                {
                     partida.setP2_health(0);
-                }
+            }
+            
+            if(pasarTurnoOver)
+            {
+                GameMethods.swichTurn(partida.getP_turn());
             }
             
             //Cierra el juego 
-            if(salirOver==true)
+            if(salirOver)
             {
                 System.exit(0);
             }
@@ -274,22 +298,25 @@ public class PantallaJuego extends BasicGameState
         }
         else
         {
-            x1 = xInit1; x2 = xInit2; x3 = xInit3; x4 = xInit4; x5 = xInit5;
-            y1 = yInit1; y2 = yInit2; y3 = yInit3; y4 = yInit4; y5 = yInit5;
-            distanciaX = 0; distanciaY = 0;
-            
             if(invocacionPosible)
             {
-                if(partida.getP_turn() == 1)
+                if(y1 < yInit1 - 100 || y2 < yInit2 - 100 || y3 < yInit3 - 100 || y4 < yInit4 - 100 || y5 < yInit5 - 100)
                 {
-                    GameMethods.invokeCard(unidadSeleccionada, null, 1);
-                    invocacionPosible = false;
+                    if(partida.getP_turn() == 1)
+                    {
+                        invocacionPosible = false;
+                        GameMethods.invokeCard(unidadSeleccionada, null, 1);
+                    }
+                    else
+                    {
+                        invocacionPosible = false;
+                        GameMethods.invokeCard(unidadSeleccionada, null, 2);
+                    }
                 }
-                else
-                {
-                    GameMethods.invokeCard(unidadSeleccionada, null, 2);
-                    invocacionPosible = false;
-                }
+                
+                x1 = xInit1; x2 = xInit2; x3 = xInit3; x4 = xInit4; x5 = xInit5;
+                y1 = yInit1; y2 = yInit2; y3 = yInit3; y4 = yInit4; y5 = yInit5;
+                distanciaX = 0; distanciaY = 0;
             }
         }
     }
@@ -311,43 +338,43 @@ public class PantallaJuego extends BasicGameState
         {
             case 5:
                 imagenMesa1_1 = partida.getP1_table().get(0).getRutaImagenMesa();
-                imagenMesa1_1.draw(120, 150, 60, 60);
+                imagenMesa1_1.draw(120, 130, 60, 60);
                 imagenMesa1_2 = partida.getP1_table().get(1).getRutaImagenMesa();
-                imagenMesa1_2.draw(170, 250, 60, 60);
+                imagenMesa1_2.draw(220, 230, 60, 60);
                 imagenMesa1_3 = partida.getP1_table().get(2).getRutaImagenMesa();
-                imagenMesa1_3.draw(120, 350, 60, 60);
+                imagenMesa1_3.draw(120, 330, 60, 60);
                 imagenMesa1_4 = partida.getP1_table().get(3).getRutaImagenMesa();
-                imagenMesa1_4.draw(220, 250, 60, 60);
+                imagenMesa1_4.draw(280, 330, 60, 60);
                 imagenMesa1_5 = partida.getP1_table().get(4).getRutaImagenMesa();
-                imagenMesa1_5.draw(220, 150, 60, 60);
+                imagenMesa1_5.draw(280, 130, 60, 60);
                 break;
             case 4:
                 imagenMesa1_1 = partida.getP1_table().get(0).getRutaImagenMesa();
-                imagenMesa1_1.draw(120, 150, 60, 60);
+                imagenMesa1_1.draw(120, 130, 60, 60);
                 imagenMesa1_2 = partida.getP1_table().get(1).getRutaImagenMesa();
-                imagenMesa1_2.draw(170, 250, 60, 60);
+                imagenMesa1_2.draw(220, 230, 60, 60);
                 imagenMesa1_3 = partida.getP1_table().get(2).getRutaImagenMesa();
-                imagenMesa1_3.draw(120, 350, 60, 60);
+                imagenMesa1_3.draw(120, 330, 60, 60);
                 imagenMesa1_4 = partida.getP1_table().get(3).getRutaImagenMesa();
-                imagenMesa1_4.draw(220, 250, 60, 60);
+                imagenMesa1_4.draw(280, 330, 60, 60);
                 break;
             case 3:
                 imagenMesa1_1 = partida.getP1_table().get(0).getRutaImagenMesa();
-                imagenMesa1_1.draw(120, 150, 60, 60);
+                imagenMesa1_1.draw(120, 130, 60, 60);
                 imagenMesa1_2 = partida.getP1_table().get(1).getRutaImagenMesa();
-                imagenMesa1_2.draw(170, 250, 60, 60);
+                imagenMesa1_2.draw(220, 230, 60, 60);
                 imagenMesa1_3 = partida.getP1_table().get(2).getRutaImagenMesa();
-                imagenMesa1_3.draw(120, 350, 60, 60);
+                imagenMesa1_3.draw(120, 330, 60, 60);
                 break;
             case 2:
                 imagenMesa1_1 = partida.getP1_table().get(0).getRutaImagenMesa();
-                imagenMesa1_1.draw(120, 150, 60, 60);
+                imagenMesa1_1.draw(120, 130, 60, 60);
                 imagenMesa1_2 = partida.getP1_table().get(1).getRutaImagenMesa();
-                imagenMesa1_2.draw(170, 250, 60, 60);
+                imagenMesa1_2.draw(220, 230, 60, 60);
                 break;
             case 1:
                 imagenMesa1_1 = partida.getP1_table().get(0).getRutaImagenMesa();
-                imagenMesa1_1.draw(120, 150, 60, 60);
+                imagenMesa1_1.draw(120, 130, 60, 60);
                 break;
             default:
                 break;
@@ -357,43 +384,43 @@ public class PantallaJuego extends BasicGameState
         {
             case 5:
                 imagenMesa2_1 = partida.getP2_table().get(0).getRutaImagenMesa();
-                imagenMesa2_1.draw(x1, y1, 110, 150);
+                imagenMesa2_1.draw(1160, 130, -60, 60);
                 imagenMesa2_2 = partida.getP2_table().get(1).getRutaImagenMesa();
-                imagenMesa2_2.draw(x2, y2, 110, 150);
+                imagenMesa2_2.draw(1060, 230, -60, 60);
                 imagenMesa2_3 = partida.getP2_table().get(2).getRutaImagenMesa();
-                imagenMesa2_3.draw(x3, y3, 110, 150);
+                imagenMesa2_3.draw(1160, 330, -60, 60);
                 imagenMesa2_4 = partida.getP2_table().get(3).getRutaImagenMesa();
-                imagenMesa2_4.draw(x4, y4, 110, 150);
+                imagenMesa2_4.draw(1000, 330, -60, 60);
                 imagenMesa2_5 = partida.getP2_table().get(4).getRutaImagenMesa();
-                imagenMesa2_5.draw(x5, y5, 110, 150);
+                imagenMesa2_5.draw(1000, 130, -60, 60);
                 break;
             case 4:
                 imagenMesa2_1 = partida.getP2_table().get(0).getRutaImagenMesa();
-                imagenMesa2_1.draw(x1, y1, 110, 150);
+                imagenMesa2_1.draw(1160, 130, -60, 60);
                 imagenMesa2_2 = partida.getP2_table().get(1).getRutaImagenMesa();
-                imagenMesa2_2.draw(x2, y2, 110, 150);
+                imagenMesa2_2.draw(1060, 230, -60, 60);
                 imagenMesa2_3 = partida.getP2_table().get(2).getRutaImagenMesa();
-                imagenMesa2_3.draw(x3, y3, 110, 150);
+                imagenMesa2_3.draw(1160, 330, -60, 60);
                 imagenMesa2_4 = partida.getP2_table().get(3).getRutaImagenMesa();
-                imagenMesa2_4.draw(x4, y4, 110, 150);
+                imagenMesa2_4.draw(1000, 330, -60, 60);
                 break;
             case 3:
                 imagenMesa2_1 = partida.getP2_table().get(0).getRutaImagenMesa();
-                imagenMesa2_1.draw(x1, y1, 110, 150);
+                imagenMesa2_1.draw(1160, 130, -60, 60);
                 imagenMesa2_2 = partida.getP2_table().get(1).getRutaImagenMesa();
-                imagenMesa2_2.draw(x2, y2, 110, 150);
+                imagenMesa2_2.draw(1060, 230, -60, 60);
                 imagenMesa2_3 = partida.getP2_table().get(2).getRutaImagenMesa();
-                imagenMesa2_3.draw(x3, y3, 110, 150);
+                imagenMesa2_3.draw(1160, 330, -60, 60);
                 break;
             case 2:
                 imagenMesa2_1 = partida.getP2_table().get(0).getRutaImagenMesa();
-                imagenMesa2_1.draw(x1, y1, 110, 150);
+                imagenMesa2_1.draw(1160, 130, -60, 60);
                 imagenMesa2_2 = partida.getP2_table().get(1).getRutaImagenMesa();
-                imagenMesa2_2.draw(x2, y2, 110, 150);
+                imagenMesa2_2.draw(1060, 230, -60, 60);
                 break;
             case 1:
                 imagenMesa2_1 = partida.getP2_table().get(0).getRutaImagenMesa();
-                imagenMesa2_1.draw(x1, y1, 110, 150);
+                imagenMesa2_1.draw(1160, 130, -60, 60);
                 break;
             default:
                 break;
@@ -593,8 +620,8 @@ public class PantallaJuego extends BasicGameState
             Random r1 = new Random();
             Random r2 = new Random();
             
-            nombre1 = (r1.nextInt(9) + 1) + "";
-            nombre2 = (r1.nextInt(9) + 1) + "";
+            nombre1 = (r1.nextInt(44) + 1) + "";
+            nombre2 = (r2.nextInt(44) + 1) + "";
             
             Unit unit = new Unit(nombre1);
             Unit unit2 = new Unit(nombre2);
@@ -607,20 +634,24 @@ public class PantallaJuego extends BasicGameState
         partida.setP2_deck(mazo2);
         
         ArrayList <Unit> aux = new ArrayList <> ();
+        System.out.println(partida.getP1_deck().size() + " init - jugador 1" );
         Unit unit = partida.getP1_deck().remove(partida.getP1_deck().size() - 1);
         Unit unit2 = partida.getP1_deck().remove(partida.getP1_deck().size() - 1);
         Unit unit3 = partida.getP1_deck().remove(partida.getP1_deck().size() - 1);
+        System.out.println(partida.getP1_deck().size() + " init - jugador 1" );
         aux.add(unit);
         aux.add(unit2);
         aux.add(unit3);
         partida.setP1_hand(aux);
         ArrayList <Unit> aux2 = new ArrayList <> ();
+        System.out.println(partida.getP2_deck().size() + " init - jugador 2" );
         Unit unit11 = partida.getP2_deck().remove(partida.getP2_deck().size() - 1);
         Unit unit12 = partida.getP2_deck().remove(partida.getP2_deck().size() - 1);
         Unit unit13 = partida.getP2_deck().remove(partida.getP2_deck().size() - 1);
-        aux2.add(unit);
-        aux2.add(unit2);
-        aux2.add(unit3);
+        System.out.println(partida.getP2_deck().size() + " init - jugador 2" );
+        aux2.add(unit11);
+        aux2.add(unit12);
+        aux2.add(unit13);
         partida.setP2_hand(aux2);
     }
     

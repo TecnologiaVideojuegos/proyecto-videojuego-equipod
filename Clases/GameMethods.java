@@ -1,6 +1,8 @@
 package FightKnights.Logic;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.SlickException;
 
 public class GameMethods 
@@ -20,7 +22,27 @@ public class GameMethods
         
         // Incrementa el turno de la partida.
         
-        match.setP_turn(player);
+        if(player == 1)
+        {
+            match.setP_turn(2);
+            int i = match.getP2_deck().size() - 1;
+            Unit unit = match.getP2_deck().get(i);
+            ArrayList aux = match.getP2_hand();
+            aux.add(unit);
+            match.setP2_hand(aux);
+            match.getP2_deck().remove(unit);
+        }
+        else
+        {
+            match.setP_turn(1);
+            int i = match.getP1_deck().size() - 1;
+            Unit unit = match.getP1_deck().get(i);
+            ArrayList aux = match.getP1_hand();
+            aux.add(unit);
+            match.setP1_hand(aux);
+            match.getP1_deck().remove(unit);
+        }
+        
         match.setTurn_count(match.getTurn_count() + 1);
     }
     
@@ -128,7 +150,7 @@ public class GameMethods
                     ArrayList<Unit> handPlayer1 = match.getP1_hand();
                     ArrayList<Unit> tablePlayer1 = match.getP1_table();
                     
-                    if(tablePlayer1.size() < 4 )
+                    if(tablePlayer1.size() <= 4 )
                     {
                         if(match.getP1_energy() >= unit.getCost())
                         {
@@ -136,7 +158,10 @@ public class GameMethods
                             handPlayer1.remove(unit);
                             
                             match.setP1_energy(match.getP1_energy() - unit.getCost());
-                            unit.initSkill(target);
+                            //unit.initSkill();
+                            
+                            System.out.println("Invocado");
+                            
                         } 
                         else
                             System.out.println("No tienes suficiente energia");
@@ -149,7 +174,7 @@ public class GameMethods
                     ArrayList<Unit> handPlayer2 = match.getP2_hand();
                     ArrayList<Unit> tablePlayer2 = match.getP2_table();
                     
-                    if(tablePlayer2.size() < 4 )
+                    if(tablePlayer2.size() <= 4 )
                     {
                         if(match.getP2_energy() >= unit.getCost())
                         {
@@ -157,7 +182,10 @@ public class GameMethods
                             handPlayer2.remove(unit);
                             
                             match.setP2_energy(match.getP2_energy() - unit.getCost());
-                            unit.initSkill(target);
+                            //unit.initSkill();
+                            
+                            System.out.println("Invocado");
+                            
                         }  
                         else
                             System.out.println("No tienes suficiente energia");
@@ -177,7 +205,10 @@ public class GameMethods
                         handPlayer1.remove(unit);
 
                         match.setP1_energy(match.getP1_energy() - unit.getCost());
-                        unit.initSkill(target);
+                        //unit.initSkill();
+                        
+                        System.out.println("Invocado");
+                            
                     }   
                     else
                         System.out.println("No tienes suficiente energia");
@@ -189,10 +220,13 @@ public class GameMethods
                     
                     if(match.getP2_energy() >= unit.getCost())
                     {
-                        handPlayer2.remove(handPlayer2.indexOf(unit));
+                        handPlayer2.remove(unit);
 
                         match.setP2_energy(match.getP2_energy() - unit.getCost());
-                        unit.initSkill(target);
+                        //unit.initSkill();
+                        
+                        System.out.println("Invocado");
+                            
                     }   
                     else
                         System.out.println("No tienes suficiente energia");
@@ -205,7 +239,7 @@ public class GameMethods
         }
     }
 
-    public static void specialInvokeCard(Unit unit, Unit target, int player) throws SlickException //Invocacion realizada sin estar una carta en la mano.
+    /*public static void specialInvokeCard(Unit unit, Unit target, int player) throws SlickException //Invocacion realizada sin estar una carta en la mano.
     {
     	Match match = Match.getMatchInstance();
         
@@ -220,7 +254,7 @@ public class GameMethods
                     if(tablePlayer1.size() < 4 )
                     {
                             tablePlayer1.add(unit);
-                            unit.initSkill(target);
+                            unit.initSkill();
                     }
                     else
                         System.out.println("No cabe ninguna carta mas en tu mesa");
@@ -232,7 +266,7 @@ public class GameMethods
                     if(tablePlayer2.size() < 4 )
                     {
                             tablePlayer2.add(unit);
-                            unit.initSkill(target);
+                            unit.initSkill();
                     }
                     else
                         System.out.println("No cabe ninguna carta mas en tu mesa");
@@ -246,7 +280,7 @@ public class GameMethods
                     
                     if(tablePlayer1.size() < 4 )
                     {
-                            unit.initSkill(target);
+                            unit.initSkill();
                     }
                     else
                         System.out.println("No cabe ninguna carta mas en tu mesa");
@@ -258,13 +292,13 @@ public class GameMethods
                     
                     if(tablePlayer2.size() < 4 )
                     {
-                            unit.initSkill(target);
+                            unit.initSkill();
                     }
                     else
                         System.out.println("No cabe ninguna carta mas en tu mesa");
                 }
             }
         }
-    }
+    }*/
     
 }

@@ -576,7 +576,7 @@ public class Unit {
 
     // AL CREAR LA UNIDAD SE EJECUTA INITSKILL Y ALIVESKILL PARA COMPROBAR
     // SI ESA CARTA TIENE EFECTOS DE ESOS.
-    public void initSkill(Unit target) throws SlickException // Efecto que se ejecuta al invocar la carta.
+    public void initSkill() throws SlickException // Efecto que se ejecuta al invocar la carta.
     {
         switch (name) {
             case "Bola de fuego": {
@@ -588,18 +588,37 @@ public class Unit {
                 } else {
                     danio_incrementado = match.getP2_spellIncrement();
                 }
-                target.setHealth(target.getHealth() - (this.damage + danio_incrementado));
-                break;
-            }
-            case "Cazador": {
-                Match match = Match.getMatchInstance();
-                Unit lobo = new Unit("Lobo");
-                GameMethods.specialInvokeCard(lobo, null, match.getP_turn()); //Invoca al primer lobo si cabe
-                GameMethods.specialInvokeCard(lobo, null, match.getP_turn()); //Invoca al segundo lobo si cabe
+                
+                if(match.getP_turn() == 1)
+                {
+                    for(Unit unit : match.getP2_table())
+                    {
+                        unit.setHealth(unit.getHealth() - (1 + danio_incrementado));
+                    }
+                }
+                else
+                {
+                    for(Unit unit : match.getP1_table())
+                    {
+                        unit.setHealth(unit.getHealth() - (1 + danio_incrementado));
+                    }
+                }
+                
+                
+                //target.setHealth(target.getHealth() - (this.damage + danio_incrementado));
                 break;
             }
             case "Clerigo": {
-                target.setHealth(target.getHealth() + 5);
+                Match match = Match.getMatchInstance();
+                if(match.getP_turn() == 1)
+                {
+                    match.setP1_health(match.getP1_health() + 5);
+                }
+                else
+                {
+                    match.setP2_health(match.getP2_health() + 5);
+                }
+                //target.setHealth(target.getHealth() + 5);
                 break;
             }
             case "Valkiria": {
@@ -635,6 +654,7 @@ public class Unit {
                 ArrayList<Unit> tablero_aliado;
                 ArrayList<Unit> tablero_enemigo;
                 ArrayList<Unit> mano_aliada;
+                
                 if (match.getP_turn() == 1) {
                     tablero_aliado = match.getP1_table();
                     tablero_enemigo = match.getP2_table();
@@ -647,6 +667,8 @@ public class Unit {
                 tablero_aliado.clear();
                 tablero_enemigo.clear();
                 mano_aliada.clear();
+                
+                tablero_aliado.add(new Unit("10"));
                 break;
             }
             case "Bruja": {
@@ -691,7 +713,7 @@ public class Unit {
         }
     }
 
-    public void attackSkill(Unit target) // Efecto que se ejecuta al atacar.
+    public void attackSkill() // Efecto que se ejecuta al atacar.
     {
         switch (name) {
             /*case "Acechador Oscuro":
@@ -715,23 +737,34 @@ public class Unit {
 					}
 				}
 			}*/
-            case "Vampiro": {
+            case "Vampiro": 
+            {
                 this.setHealth(this.getHealth() + 1);
                 break;
             }
 
-            default: {
+            default: 
+            {
                 System.out.println("No tiene skill al atacar");
                 break;
             }
         }
     }
 
-    public void aliveSkill(Unit target) // Efecto que se ejecuta mientras esta en la mesa.
+    public void aliveSkill() // Efecto que se ejecuta mientras esta en la mesa.
     {
         switch (name) {
             case "Druida": {
-                target.setHealth(target.getHealth() + 1);
+                Match match = Match.getMatchInstance();
+                for(Unit unit : match.getP1_table())
+                {
+                    unit.setHealth(unit.getHealth() + 1);
+                }
+                for(Unit unit : match.getP2_table())
+                {
+                    unit.setHealth(unit.getHealth() + 1);
+                }
+                //target.setHealth(target.getHealth() + 1);
                 break;
             }
             case "Dragon Maligno": {
@@ -767,7 +800,7 @@ public class Unit {
         switch (name) {
             case "Contramaestre": {
                 Unit bolaFuego = new Unit("Bola de Fuego");
-                bolaFuego.initSkill(target);
+                bolaFuego.initSkill();
                 break;
             }
             case "Caballero Sagrado": {
@@ -933,5 +966,7 @@ public class Unit {
     public void setRutaImagenMesa(Image rutaImagenMesa) {
         this.rutaImagenMesa = rutaImagenMesa;
     }
+    
+}
     
 }

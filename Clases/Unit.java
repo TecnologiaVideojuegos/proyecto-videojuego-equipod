@@ -34,7 +34,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/1.jpeg");
+                this.rutaImagenTablero = new Image("res/1.png");
                 this.rutaImagenMesa = new Image("res/r1.png");
                 break;
             case "2":
@@ -47,7 +47,7 @@ public class Unit {
                 this.type = "Minion";
                 this.attackExecuted = true;
                 this.guard = true;
-                this.rutaImagenTablero = new Image("res/2.jpeg");
+                this.rutaImagenTablero = new Image("res/2.png");
                 this.rutaImagenMesa = new Image("res/r2.png");
                 break;
             case "25":
@@ -58,7 +58,7 @@ public class Unit {
                 this.damage = this.initial_damage;
                 this.health = this.initial_health;
                 this.type = "Spell";
-                this.rutaImagenTablero = new Image("res/25.jpeg");
+                this.rutaImagenTablero = new Image("res/25.png");
                 this.rutaImagenMesa = new Image("res/r25.png");
                 break;
             case "24":
@@ -70,7 +70,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/24.jpeg");
+                this.rutaImagenTablero = new Image("res/24.png");
                 this.rutaImagenMesa = new Image("res/r24.png");
                 break;
             case "7":
@@ -82,7 +82,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/7.jpeg");
+                this.rutaImagenTablero = new Image("res/7.png");
                 this.rutaImagenMesa = new Image("res/r7.png");
                 break;
             case "41":
@@ -94,7 +94,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/41.jpeg");
+                this.rutaImagenTablero = new Image("res/41.png");
                 this.rutaImagenMesa = new Image("res/r41.png");
                 break;
             case "39":
@@ -106,7 +106,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/39.jpeg");
+                this.rutaImagenTablero = new Image("res/39.png");
                 this.rutaImagenMesa = new Image("res/r39.png");
                 break;
             case "23":
@@ -118,7 +118,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/23.jpeg");
+                this.rutaImagenTablero = new Image("res/23.png");
                 this.rutaImagenMesa = new Image("res/r23.png");
                 break;
             case "44":
@@ -130,7 +130,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/44.jpeg");
+                this.rutaImagenTablero = new Image("res/44.png");
                 this.rutaImagenMesa = new Image("res/r44.png");
                 break;
             /*case "10":
@@ -152,7 +152,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/37.jpeg");
+                this.rutaImagenTablero = new Image("res/37.png");
                 this.rutaImagenMesa = new Image("res/r37.png");
                 break;
             case "3":
@@ -164,7 +164,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/3.jpeg");
+                this.rutaImagenTablero = new Image("res/3.png");
                 this.rutaImagenMesa = new Image("res/r3.png");
                 break;               
             case "35":
@@ -176,7 +176,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/35.jpeg");
+                this.rutaImagenTablero = new Image("res/35.png");
                 this.rutaImagenMesa = new Image("res/r35.png");
                 break;
             case "4":
@@ -188,7 +188,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/4.jpeg");
+                this.rutaImagenTablero = new Image("res/4.png");
                 this.rutaImagenMesa = new Image("res/r4.png");
                 break;
             case "42":
@@ -200,7 +200,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/42.jpeg");
+                this.rutaImagenTablero = new Image("res/42.png");
                 this.rutaImagenMesa = new Image("res/r42.png");
                 break;
             case "16":
@@ -212,7 +212,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/16.jpeg");
+                this.rutaImagenTablero = new Image("res/16.png");
                 this.rutaImagenMesa = new Image("res/r16.png");
                 break;
             case "5":
@@ -224,7 +224,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/5.jpeg");
+                this.rutaImagenTablero = new Image("res/5.png");
                 this.rutaImagenMesa = new Image("res/r5.png");
                 break;
             case "18":
@@ -236,7 +236,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/18.jpeg");
+                this.rutaImagenTablero = new Image("res/18.png");
                 this.rutaImagenMesa = new Image("res/r18.png");
                 break;
             case "30":
@@ -248,7 +248,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/30.jpeg");
+                this.rutaImagenTablero = new Image("res/30.png");
                 this.rutaImagenMesa = new Image("res/r30.png");
                 break;
             case "17":
@@ -260,7 +260,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/17.jpeg");
+                this.rutaImagenTablero = new Image("res/17.png");
                 this.rutaImagenMesa = new Image("res/r17.png");
                 break;
             case "19":
@@ -272,7 +272,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/19.jpeg");
+                this.rutaImagenTablero = new Image("res/19.png");
                 this.rutaImagenMesa = new Image("res/r19.png");
                 break;
             case "32":
@@ -284,7 +284,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/32.jpeg");
+                this.rutaImagenTablero = new Image("res/32.png");
                 this.rutaImagenMesa = new Image("res/r32.png");
                 break;
             case "36":
@@ -296,7 +296,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/36.jpeg");
+                this.rutaImagenTablero = new Image("res/36.png");
                 this.rutaImagenMesa = new Image("res/r36.png");
                 break;
             case "27":
@@ -309,7 +309,7 @@ public class Unit {
                 this.type = "Minion";
                 this.guard = true;
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/27.jpeg");
+                this.rutaImagenTablero = new Image("res/27.png");
                 this.rutaImagenMesa = new Image("res/r27.png");
                 break;
             case "8":
@@ -321,7 +321,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = false;
-                this.rutaImagenTablero = new Image("res/8.jpeg");
+                this.rutaImagenTablero = new Image("res/8.png");
                 this.rutaImagenMesa = new Image("res/r8.png");
                 break;
             case "38":
@@ -334,7 +334,7 @@ public class Unit {
                 this.type = "Minion";
                 this.guard = true;
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/38.jpeg");
+                this.rutaImagenTablero = new Image("res/38.png");
                 this.rutaImagenMesa = new Image("res/r38.png");
                 break;
             case "9":
@@ -346,7 +346,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = false;
-                this.rutaImagenTablero = new Image("res/9.jpeg");
+                this.rutaImagenTablero = new Image("res/9.png");
                 this.rutaImagenMesa = new Image("res/r9.png");
                 break;
             case "21":
@@ -359,7 +359,7 @@ public class Unit {
                 this.type = "Minion";
                 this.guard = true;
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/21.jpeg");
+                this.rutaImagenTablero = new Image("res/21.png");
                 this.rutaImagenMesa = new Image("res/r21.png");
                 break;
             case "26":
@@ -371,7 +371,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/26.jpeg");
+                this.rutaImagenTablero = new Image("res/26.png");
                 this.rutaImagenMesa = new Image("res/r26.png");
                 break;
             case "6":
@@ -383,7 +383,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/6.jpeg");
+                this.rutaImagenTablero = new Image("res/6.png");
                 this.rutaImagenMesa = new Image("res/r6.png");
                 break;
             case "34":
@@ -395,7 +395,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/34.jpeg");
+                this.rutaImagenTablero = new Image("res/34.png");
                 this.rutaImagenMesa = new Image("res/r34.png");
                 break;
             case "14":
@@ -408,7 +408,7 @@ public class Unit {
                 this.type = "Minion";
                 this.guard = true;
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/14.jpeg");
+                this.rutaImagenTablero = new Image("res/14.png");
                 this.rutaImagenMesa = new Image("res/r14.png");
                 break;
             case "33":
@@ -420,7 +420,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/33.jpeg");
+                this.rutaImagenTablero = new Image("res/33.png");
                 this.rutaImagenMesa = new Image("res/r33.png");
                 break;
             case "43":
@@ -432,7 +432,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/43.jpeg");
+                this.rutaImagenTablero = new Image("res/43.png");
                 this.rutaImagenMesa = new Image("res/r43.png");
                 break;
             case "11":
@@ -445,7 +445,7 @@ public class Unit {
                 this.type = "Minion";
                 this.guard = true;
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/11.jpeg");
+                this.rutaImagenTablero = new Image("res/11.png");
                 this.rutaImagenMesa = new Image("res/r11.png");
                 break;
             case "22":
@@ -457,7 +457,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/22.jpeg");
+                this.rutaImagenTablero = new Image("res/22.png");
                 this.rutaImagenMesa = new Image("res/r22.png");
                 break;
             case "28":
@@ -469,7 +469,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/28.jpeg");
+                this.rutaImagenTablero = new Image("res/28.png");
                 this.rutaImagenMesa = new Image("res/r28.png");
                 break;
             case "13":
@@ -481,7 +481,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/13.jpeg");
+                this.rutaImagenTablero = new Image("res/13.png");
                 this.rutaImagenMesa = new Image("res/r13.png");
                 break;
             case "12":
@@ -493,7 +493,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/12.jpeg");
+                this.rutaImagenTablero = new Image("res/12.png");
                 this.rutaImagenMesa = new Image("res/r12.png");
                 break;
             case "15":
@@ -505,7 +505,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/15.jpeg");
+                this.rutaImagenTablero = new Image("res/15.png");
                 this.rutaImagenMesa = new Image("res/r15.png");
                 break;
             case "20":
@@ -517,7 +517,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/20.jpeg");
+                this.rutaImagenTablero = new Image("res/20.png");
                 this.rutaImagenMesa = new Image("res/r20.png");
                 break;
             case "29":
@@ -529,7 +529,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/29.jpeg");
+                this.rutaImagenTablero = new Image("res/29.png");
                 this.rutaImagenMesa = new Image("res/r29.png");
                 break;
             case "31":
@@ -542,7 +542,7 @@ public class Unit {
                 this.type = "Minion";
                 this.guard = true;
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/31.jpeg");
+                this.rutaImagenTablero = new Image("res/31.png");
                 this.rutaImagenMesa = new Image("res/r31.png");
                 break;
             case "10":
@@ -554,7 +554,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/10.jpeg");
+                this.rutaImagenTablero = new Image("res/10.png");
                 this.rutaImagenMesa = new Image("res/r10.png");
                 break;
             default: {
@@ -566,7 +566,7 @@ public class Unit {
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/2.jpeg");
+                this.rutaImagenTablero = new Image("res/2.png");
                 this.rutaImagenMesa = new Image("res/r2.png");
                 break;
             }
@@ -969,4 +969,3 @@ public class Unit {
     
 }
     
-}

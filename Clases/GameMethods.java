@@ -158,7 +158,7 @@ public class GameMethods
                             handPlayer1.remove(unit);
                             
                             match.setP1_energy(match.getP1_energy() - unit.getCost());
-                            //unit.initSkill();
+                            unit.initSkill();
                             
                             System.out.println("Invocado");
                             
@@ -182,7 +182,7 @@ public class GameMethods
                             handPlayer2.remove(unit);
                             
                             match.setP2_energy(match.getP2_energy() - unit.getCost());
-                            //unit.initSkill();
+                            unit.initSkill();
                             
                             System.out.println("Invocado");
                             
@@ -193,6 +193,7 @@ public class GameMethods
                     else
                         System.out.println("No cabe ninguna carta mas en tu mesa");
                 }
+                break;
             }
             case "Spell":
             {
@@ -205,7 +206,7 @@ public class GameMethods
                         handPlayer1.remove(unit);
 
                         match.setP1_energy(match.getP1_energy() - unit.getCost());
-                        //unit.initSkill();
+                        unit.initSkill();
                         
                         System.out.println("Invocado");
                             
@@ -223,7 +224,7 @@ public class GameMethods
                         handPlayer2.remove(unit);
 
                         match.setP2_energy(match.getP2_energy() - unit.getCost());
-                        //unit.initSkill();
+                        unit.initSkill();
                         
                         System.out.println("Invocado");
                             
@@ -231,6 +232,7 @@ public class GameMethods
                     else
                         System.out.println("No tienes suficiente energia");
                 }
+                break;
             }
             default:
             {

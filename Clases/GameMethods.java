@@ -16,31 +16,63 @@ public class GameMethods
         // Resetea el booleano de ataque para cada carta de la mesa del jugador.
         
         for(Unit units : tablePlayer1)
+        {
             units.setAttackExecuted(false);
+            units.aliveSkill();
+        }
+        
         for(Unit units : tablePlayer2)
+        {
             units.setAttackExecuted(false);
+            units.aliveSkill();
+        }
         
         // Incrementa el turno de la partida.
         
         if(player == 1)
         {
             match.setP_turn(2);
-            int i = match.getP2_deck().size() - 1;
-            Unit unit = match.getP2_deck().get(i);
-            ArrayList aux = match.getP2_hand();
-            aux.add(unit);
-            match.setP2_hand(aux);
-            match.getP2_deck().remove(unit);
+            if(match.getP1_hand().size()<5)
+            {
+                int i = match.getP2_deck().size() - 1;
+                Unit unit = match.getP2_deck().get(i);
+                ArrayList aux = match.getP2_hand();
+                aux.add(unit);
+                match.setP2_hand(aux);
+                match.getP2_deck().remove(unit);
+            }
+            
+            if(match.getTurn_count() > 10)
+            {
+                match.setP2_energy(10);
+            }
+            else
+            {
+                match.setP2_energy(match.getTurn_count());
+            }
         }
         else
         {
             match.setP_turn(1);
-            int i = match.getP1_deck().size() - 1;
-            Unit unit = match.getP1_deck().get(i);
-            ArrayList aux = match.getP1_hand();
-            aux.add(unit);
-            match.setP1_hand(aux);
-            match.getP1_deck().remove(unit);
+            if(match.getP1_hand().size()<5)
+            {
+                
+                int i = match.getP1_deck().size() - 1;
+                Unit unit = match.getP1_deck().get(i);
+                ArrayList aux = match.getP1_hand();
+                aux.add(unit);
+                match.setP1_hand(aux);
+                match.getP1_deck().remove(unit);
+            }
+            
+             if(match.getTurn_count() > 10)
+            {
+                match.setP1_energy(10);
+            }
+            else
+            {
+                match.setP1_energy(match.getTurn_count());
+            }
         }
         
         match.setTurn_count(match.getTurn_count() + 1);
@@ -56,7 +88,7 @@ public class GameMethods
         
         if(!unit.isAttackExecuted())
         {
-			 if(player == 1)
+                    if(player == 1)
 		     {
 		         boolean isGuarded = false;
 		         for(Unit units : tablePlayer2)
@@ -69,6 +101,7 @@ public class GameMethods
 		                     target.setHealth(target.getHealth() - unit.getDamage());
 		                     unit.setHealth(unit.getHealth() - target.getDamage());
 		                     unit.setAttackExecuted(true);
+                                     System.out.println("ATACADO CON "+unit.getDamage());
 		                 }
 		                 else
 		                     System.out.println("No puedes atacar, alguien lo protege.");
@@ -94,6 +127,7 @@ public class GameMethods
 		                     target.setHealth(target.getHealth() - unit.getDamage());
 		                     unit.setHealth(unit.getHealth() - target.getDamage());
 		                     unit.setAttackExecuted(true);
+                                     System.out.println("ATACADO CON "+unit.getDamage());
 		                 }
 		                 else
 		                     System.out.println("No puedes atacar, alguien lo protege.");
@@ -111,6 +145,7 @@ public class GameMethods
             if(target.getHealth() <= 0)
             {
                 if(player == 1)
+                    
                     tablePlayer2.remove(target);
                 else
                     tablePlayer1.remove(target);
@@ -128,11 +163,43 @@ public class GameMethods
     public static void executeAttackToPlayer(Unit unit, int player) //Ejecutamos un ataque al otro jugador
     {
         Match match = Match.getMatchInstance();
+        ArrayList<Unit> tablePlayer1 = match.getP1_table();
+        ArrayList<Unit> tablePlayer2 = match.getP2_table();
         
         if(player == 1)
-            match.setP2_health(match.getP2_health() - unit.getDamage());
+        {
+            boolean isGuarded = false;
+            for(Unit units : tablePlayer2)
+            {
+                if(units.getGuard())
+                {
+                    isGuarded = true;
+                    break;
+                }
+            }
+            if(!isGuarded)
+            {
+                match.setP2_health(match.getP2_health() - unit.getDamage());
+                unit.setAttackExecuted(true);
+            }         
+        }
         else
-            match.setP1_health(match.getP1_health() - unit.getDamage());
+        {
+            boolean isGuarded = false;
+            for(Unit units : tablePlayer1)
+            {
+                if(units.getGuard())
+                {
+                    isGuarded = true;
+                    break;
+                }
+            }
+            if(!isGuarded)
+            {
+                match.setP1_health(match.getP1_health() - unit.getDamage());
+                unit.setAttackExecuted(true);
+            }         
+        }
     }
     
     // Invocaciones a la mesa de cada jugador
@@ -150,7 +217,7 @@ public class GameMethods
                     ArrayList<Unit> handPlayer1 = match.getP1_hand();
                     ArrayList<Unit> tablePlayer1 = match.getP1_table();
                     
-                    if(tablePlayer1.size() <= 4 )
+                    if(tablePlayer1.size() < 5)
                     {
                         if(match.getP1_energy() >= unit.getCost())
                         {
@@ -174,7 +241,7 @@ public class GameMethods
                     ArrayList<Unit> handPlayer2 = match.getP2_hand();
                     ArrayList<Unit> tablePlayer2 = match.getP2_table();
                     
-                    if(tablePlayer2.size() <= 4 )
+                    if(tablePlayer2.size() < 5)
                     {
                         if(match.getP2_energy() >= unit.getCost())
                         {
@@ -236,7 +303,7 @@ public class GameMethods
             }
             default:
             {
-                
+                break;
             }
         }
     }

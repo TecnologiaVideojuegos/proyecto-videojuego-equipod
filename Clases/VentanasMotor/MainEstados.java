@@ -35,5 +35,6 @@ public class MainEstados extends StateBasedGame {
         this.addState(new PantallaCarga());
         this.addState(new Menu());        
         this.addState(new PantallaJuego());
+        this.addState(new VictoryScreen());
     }
 }

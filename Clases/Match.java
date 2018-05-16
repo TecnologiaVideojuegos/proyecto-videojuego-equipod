@@ -6,7 +6,7 @@ public class Match {
 
     private static Match match;
 
-    private static int turn_count = 0; //Numero de turnos... MAXIMO 20 o algo asi
+    private static int turn_count = 1; //Numero de turnos... MAXIMO 20 o algo asi
     private static int p_turn; // 1 o 2 segun el jugador al ue le toque.
 
     private static ArrayList<Unit> p1_deck = new ArrayList <Unit> (); //Todas las cartas del jugador 1.
@@ -155,5 +155,3 @@ public class Match {
     }
 
 }
-
-

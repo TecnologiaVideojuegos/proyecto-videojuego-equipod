@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.Random;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.newdawn.slick.font.effects.ColorEffect;
 
 
 
@@ -25,6 +31,7 @@ public class PantallaJuego extends BasicGameState
     private Image cursor;
     private Image tablero, reinicio, rendicion, salir, pasarTurno;
     private Image cartaDePrueba;
+    private Image energia1, energia2, vida1, vida2;
     private Image imagenMano1, imagenMano2, imagenMano3, imagenMano4, imagenMano5;
     private Image imagenMesa1_1, imagenMesa1_2, imagenMesa1_3, imagenMesa1_4, imagenMesa1_5;
     private Image imagenMesa2_1, imagenMesa2_2, imagenMesa2_3, imagenMesa2_4, imagenMesa2_5;
@@ -35,12 +42,18 @@ public class PantallaJuego extends BasicGameState
     private boolean ratonPulsado, ratonPress;
     private boolean invocacionPosible = false;
     private boolean reinicioOver, rendicionOver, salirOver, pasarTurnoOver;
+    private boolean unit1Over, unit2Over, unit3Over, unit4Over, unit5Over, unit6Over, unit7Over, unit8Over, unit9Over, unit10Over;
     
     private int x1, x2, x3, x4, x5, y1, y2, y3, y4, y5;
     private int xInit1, xInit2, xInit3, xInit4, xInit5, yInit1, yInit2, yInit3, yInit4, yInit5;
+    
+    private Unit unitSelected = null;
+    private Unit targetSelected = null;
+            
     private int distanciaX, distanciaY;
     
     private GameContainer container;
+    private UnicodeFont fuente;
 
     @Override
     public int getID() 
@@ -53,18 +66,42 @@ public class PantallaJuego extends BasicGameState
     {
         this.container = container;
         
+        try 
+        {
+            Font fuenteUAX = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, org.newdawn.slick.util.ResourceLoader.getResourceAsStream("fonts/Hellgrazer.otf"));
+            fuenteUAX = fuenteUAX.deriveFont(java.awt.Font.PLAIN, 30);
+            fuente = new UnicodeFont(fuenteUAX);
+            fuente.addAsciiGlyphs();
+            ColorEffect color = new ColorEffect(java.awt.Color.DARK_GRAY);
+            fuente.getEffects().add(color);
+            fuente.loadGlyphs();
+        } 
+        catch (FontFormatException ex) 
+        {
+            Logger.getLogger(PantallaJuego.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(PantallaJuego.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getLocalizedMessage());
+        }
+        
         partida = Match.getMatchInstance();
         
         partida.setP_turn( 2 );
-        partida.setP1_energy( 100 );
-        partida.setP2_energy( 100 );
+        partida.setP1_energy( 1 );
+        partida.setP2_energy( 1 );
         
         tablero = new Image("res/TABLEROREAL.jpg");
         pasarTurno = new Image("res/pasarturno.png");
         reinicio = new Image("res/reiniciar.png");
         rendicion = new Image("res/rendirse.png");
         salir = new Image("res/salir.png");
-        
+        energia1 = new Image("res/circulo amarillo.png");
+        energia2 = new Image("res/circulo amarillo.png");
+        vida1 = new Image("res/circulo rojo.png");
+        vida2 = new Image("res/circulo rojo.png");
         raton = container.getInput();
         cursor = new Image("res/cursor.png");
         container.setMouseCursor(cursor, 0, 0);
@@ -98,11 +135,40 @@ public class PantallaJuego extends BasicGameState
         rendicion.draw(23, 500, 200, 50);
         reinicio.draw(23, 550, 200, 50);
         salir.draw(23, 600, 200, 50);
-
+        
+        energia1.draw(5, 320, 75, 75);
+        fuente.drawString(20, 340, partida.getP1_energy()+"");
+        //g.drawString(partida.getP1_energy()+"", 30, 345);
+        energia2.draw(1200, 320, 75, 75);
+        fuente.drawString(1215, 340, partida.getP2_energy()+"");
+        //g.drawString(partida.getP2_energy()+"", 1225, 345);
+        
+        vida1.draw(5, 120, 75, 75);
+        fuente.drawString(20, 140, partida.getP1_health()+"");
+        //g.drawString(partida.getP1_health()+"", 30, 150);
+        vida2.draw(1200, 120, 75, 75);
+        fuente.drawString(1215, 140, partida.getP2_health()+"");
+        //g.drawString(partida.getP2_health()+"", 1225, 150);
+        
         dibujarCartas();
         dibujarEnTablero();
         
-        g.drawString(partida.getP_turn()+"", 500, 500);
+        if(unitSelected == null)
+        {
+            fuente.drawString(200, 400, "UNIT SELECTED : NUUUUUULL");
+        }
+        else
+        {
+            fuente.drawString(200, 400, "UNIT SELECTED : " + unitSelected.getName());
+        }
+        if(targetSelected == null)
+        {
+            fuente.drawString(700, 400, "TARGET SELECTED : NUUUUUULL");
+        }
+        else
+        {
+            fuente.drawString(700, 400, "TARGET SELECTED : " + targetSelected.getName());
+        }
     }
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException 
@@ -110,9 +176,126 @@ public class PantallaJuego extends BasicGameState
         ratonPulsado = raton.isMouseButtonDown(0);
         ratonPress = raton.isMousePressed(Input.MOUSE_LEFT_BUTTON);
         ratonSobreCartas();
+        ratonSobreUnidades();
         ratonSobreBoton();
         botonPulsado();
         dragAndDrop();
+    }
+    
+    public void ratonSobreUnidades()
+    {
+        
+        if((raton.getMouseX()>=120&&raton.getMouseY()>=130)&&(raton.getMouseX()<=180&&raton.getMouseY()<=190))
+        {
+            if(partida.getP1_table().size() >= 1)
+            {
+                unit1Over = true;
+                //System.out.println("SOBRE UNIDAD 1");
+            }
+        }
+        else
+        {
+            unit1Over = false;
+        }
+        if((raton.getMouseX()>=220&&raton.getMouseY()>=230)&&(raton.getMouseX()<=280&&raton.getMouseY()<=290))
+        {
+            if(partida.getP1_table().size() >= 2)
+            {
+                unit2Over = true;
+            }
+        }
+        else
+        {
+            unit2Over = false;
+        }
+        if((raton.getMouseX()>=120&&raton.getMouseY()>=330)&&(raton.getMouseX()<=180&&raton.getMouseY()<=390))
+        {
+            if(partida.getP1_table().size() >= 3)
+            {
+                unit3Over = true;
+            }
+        }
+        else
+        {
+            unit3Over = false;
+        }
+        if((raton.getMouseX()>=280&&raton.getMouseY()>=330)&&(raton.getMouseX()<=340&&raton.getMouseY()<=390))
+        {
+            if(partida.getP1_table().size() >= 4)
+            {
+                unit4Over = true;
+            }
+        }
+        else
+        {
+            unit4Over = false;
+        }
+        if((raton.getMouseX()>=280&&raton.getMouseY()>=130)&&(raton.getMouseX()<=340&&raton.getMouseY()<=190))
+        {
+            if(partida.getP1_table().size() >= 5)
+            {
+                unit5Over = true;
+            }
+        }
+        else
+        {
+            unit5Over = false;
+        }
+        if((raton.getMouseX()>=1100&&raton.getMouseY()>=130)&&(raton.getMouseX()<=1160&&raton.getMouseY()<=190))
+        {
+            if(partida.getP2_table().size() >= 1)
+            {
+                unit6Over = true;
+            }
+        }
+        else
+        {
+            unit6Over = false;
+        }
+        if((raton.getMouseX()>=1000&&raton.getMouseY()>=230)&&(raton.getMouseX()<=1060&&raton.getMouseY()<=290))
+        {
+            if(partida.getP1_table().size() >= 2)
+            {
+                unit7Over = true;
+            }
+        }
+        else
+        {
+            unit7Over = false;
+        }
+        if((raton.getMouseX()>=1100&&raton.getMouseY()>=330)&&(raton.getMouseX()<=1160&&raton.getMouseY()<=390))
+        {
+            if(partida.getP1_table().size() >= 3)
+            {
+                unit8Over = true;
+            }
+        }
+        else
+        {
+            unit8Over = false;
+        }
+        if((raton.getMouseX()>=940&&raton.getMouseY()>=330)&&(raton.getMouseX()<=1000&&raton.getMouseY()<=390))
+        {
+            if(partida.getP1_table().size() >= 4)
+            {
+                unit9Over = true;
+            }
+        }
+        else
+        {
+            unit9Over = false;
+        }
+        if((raton.getMouseX()>=940&&raton.getMouseY()>=130)&&(raton.getMouseX()<=1000&&raton.getMouseY()<=190))
+        {
+            if(partida.getP1_table().size() >= 5)
+            {
+                unit10Over = true;
+            }
+        }
+        else
+        {
+            unit10Over = false;
+        }
     }
     
     public void ratonSobreBoton()
@@ -127,17 +310,218 @@ public class PantallaJuego extends BasicGameState
     {
         if(ratonPress)
         {
+            if(unit1Over)
+            {
+                System.out.println("UNITOVER1");
+                if(partida.getP_turn() == 1)
+                {
+                    unitSelected = partida.getP1_table().get(0);
+                    System.out.println("UNIT -->" + unitSelected.getName());
+                }
+                else
+                {
+                    if(unitSelected != null)
+                    {
+                        targetSelected = partida.getP1_table().get(0);
+                        GameMethods.executeAttack(unitSelected, targetSelected, 1);
+                        System.out.println("TARGET -->" + targetSelected.getName());
+                        unitSelected = null;
+                        targetSelected = null;
+                    }
+                }
+            }
+            if(unit2Over)
+            {
+                System.out.println("UNITOVER2");
+                if(partida.getP_turn() == 1)
+                {
+                    unitSelected = partida.getP1_table().get(1);
+                    System.out.println("UNIT -->" + unitSelected.getName());
+                }
+                else
+                {
+                    if(unitSelected != null)
+                    {
+                        targetSelected = partida.getP1_table().get(1);
+                        GameMethods.executeAttack(unitSelected, targetSelected, 1);
+                        System.out.println("TARGET -->" + targetSelected.getName());
+                        unitSelected = null;
+                        targetSelected = null;
+                    }
+                }
+            }
+            if(unit3Over)
+            {
+                System.out.println("UNITOVER3");
+                if(partida.getP_turn() == 1)
+                {
+                    unitSelected = partida.getP1_table().get(2);
+                    System.out.println("UNIT -->" + unitSelected.getName());
+                }
+                else
+                {
+                    if(unitSelected != null)
+                    {
+                        targetSelected = partida.getP1_table().get(2);
+                        GameMethods.executeAttack(unitSelected, targetSelected, 1);
+                        System.out.println("TARGET -->" + targetSelected.getName());
+                        unitSelected = null;
+                        targetSelected = null;
+                    }
+                }
+            }
+            if(unit4Over)
+            {
+                System.out.println("UNITOVER4");
+                if(partida.getP_turn() == 1)
+                {
+                    unitSelected = partida.getP1_table().get(3);
+                    System.out.println("UNIT -->" + unitSelected.getName());
+                }
+                else
+                {
+                    if(unitSelected != null)
+                    {
+                        targetSelected = partida.getP1_table().get(3);
+                        GameMethods.executeAttack(unitSelected, targetSelected, 1);
+                        System.out.println("TARGET -->" + targetSelected.getName());
+                        unitSelected = null;
+                        targetSelected = null;
+                    }
+                }
+            }
+            if(unit5Over)
+            {
+                System.out.println("UNITOVER5");
+                if(partida.getP_turn() == 1)
+                {
+                    unitSelected = partida.getP1_table().get(4);
+                    System.out.println("UNIT -->" + unitSelected.getName());
+                }
+                else
+                {
+                    if(unitSelected != null)
+                    {
+                        targetSelected = partida.getP1_table().get(4);
+                        GameMethods.executeAttack(unitSelected, targetSelected, 1);
+                        System.out.println("TARGET -->" + targetSelected.getName());
+                        unitSelected = null;
+                        targetSelected = null;
+                    }
+                }
+            }
+            if(unit6Over)
+            {
+                System.out.println("UNITOVER6");
+                if(partida.getP_turn() == 2)
+                {
+                    unitSelected = partida.getP2_table().get(0);
+                    System.out.println("UNIT -->" + unitSelected.getName());
+                }
+                else
+                {
+                    if(unitSelected != null)
+                    {
+                        targetSelected = partida.getP2_table().get(0);
+                        GameMethods.executeAttack(unitSelected, targetSelected, 2);
+                        System.out.println("TARGET -->" + targetSelected.getName());
+                        unitSelected = null;
+                        targetSelected = null;
+                    }
+                }
+            }
+            if(unit7Over)
+            {
+                System.out.println("UNITOVER7");
+                if(partida.getP_turn() == 2)
+                {
+                    unitSelected = partida.getP2_table().get(1);
+                    System.out.println("UNIT -->" + unitSelected.getName());
+                }
+                else
+                {
+                    if(unitSelected != null)
+                    {
+                        targetSelected = partida.getP2_table().get(1);
+                        GameMethods.executeAttack(unitSelected, targetSelected, 2);
+                        System.out.println("TARGET -->" + targetSelected.getName());
+                        unitSelected = null;
+                        targetSelected = null;
+                    }
+                }
+            }
+            if(unit8Over)
+            {
+                System.out.println("UNITOVER8");
+                if(partida.getP_turn() == 2)
+                {
+                    unitSelected = partida.getP1_table().get(2);
+                    System.out.println("UNIT -->" + unitSelected.getName());
+                }
+                else
+                {
+                    if(unitSelected != null)
+                    {
+                        targetSelected = partida.getP2_table().get(2);
+                        GameMethods.executeAttack(unitSelected, targetSelected, 2);
+                        System.out.println("TARGET -->" + targetSelected.getName());
+                        unitSelected = null;
+                        targetSelected = null;
+                    }
+                }
+            }
+            if(unit9Over)
+            {
+                System.out.println("UNITOVER9");
+                if(partida.getP_turn() == 2)
+                {
+                    unitSelected = partida.getP1_table().get(3);
+                    System.out.println("UNIT -->" + unitSelected.getName());
+                }
+                else
+                {
+                    if(unitSelected != null)
+                    {
+                        targetSelected = partida.getP2_table().get(3);
+                        GameMethods.executeAttack(unitSelected, targetSelected, 2);
+                        System.out.println("TARGET -->" + targetSelected.getName());
+                        unitSelected = null;
+                        targetSelected = null;
+                    }
+                }
+            }
+            if(unit10Over)
+            {
+                System.out.println("UNITOVER10");
+                if(partida.getP_turn() == 2)
+                {
+                    unitSelected = partida.getP2_table().get(4);
+                    System.out.println("UNIT -->" + unitSelected.getName());
+                }
+                else
+                {
+                    if(unitSelected != null)
+                    {
+                        targetSelected = partida.getP2_table().get(4);
+                        GameMethods.executeAttack(unitSelected, targetSelected, 2);
+                        System.out.println("TARGET -->" + targetSelected.getName());
+                        unitSelected = null;
+                        targetSelected = null;
+                    }
+                }
+            }
+            
             //Reinicia la partida
             if(reinicioOver)
             {
                 partida = Match.getMatchInstance();
 
-                partida.setTurn_count( 0 );
+                partida.setTurn_count( 1 );
                 partida.setP_turn( 1 );
                 partida.setP1_health( 20 );
                 partida.setP2_health( 20 );
-                partida.setP1_energy( 100 );
-                partida.setP2_energy( 100 );
+                partida.setP1_energy( 1 );
+                partida.setP2_energy( 1 );
 
                 unidadSeleccionada = null;
                 invocacionPosible = false;
@@ -165,6 +549,8 @@ public class PantallaJuego extends BasicGameState
             if(pasarTurnoOver)
             {
                 GameMethods.swichTurn(partida.getP_turn());
+                unitSelected = null;
+                targetSelected = null;
             }
             
             //Cierra el juego 

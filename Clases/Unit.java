@@ -558,16 +558,16 @@ public class Unit {
                 this.rutaImagenMesa = new Image("res/r10.png");
                 break;
             default: {
-                this.name = "Devastador";
-                this.cost = 10;
-                this.initial_damage = 10;
-                this.initial_health = 10;
+                this.name = "Sacerdote";
+                this.cost = 8;
+                this.initial_damage = 8;
+                this.initial_health = 7;
                 this.damage = this.initial_damage;
                 this.health = this.initial_health;
                 this.type = "Minion";
                 this.attackExecuted = true;
-                this.rutaImagenTablero = new Image("res/2.png");
-                this.rutaImagenMesa = new Image("res/r2.png");
+                this.rutaImagenTablero = new Image("res/29.png");
+                this.rutaImagenMesa = new Image("res/r29.png");
                 break;
             }
         }
@@ -770,7 +770,7 @@ public class Unit {
             case "Dragon Maligno": {
                 Match match = Match.getMatchInstance();
                 if (match.getTurn_count() > 10) {
-                    this.setDamage(this.getDamage() + 2);
+                    this.setHealth(this.getHealth() + 2);
                 }
                 break;
             }
@@ -968,4 +968,3 @@ public class Unit {
     }
     
 }
-    
